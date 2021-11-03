@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from website.views import welcome, date
+from cars.views import detail, cars
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', welcome),
+    path('', welcome, name="welcome"),
     path('date', date),
+    path('cars/<int:id>', detail),
+    path('cars/cars.html', cars)
 ]

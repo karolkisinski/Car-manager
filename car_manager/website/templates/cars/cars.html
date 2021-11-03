@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars!</title>
+</head>
+<body>
+    <p>
+        Cars we have:
+    </p>
+
+    <ul>
+        {% for car in cars %}
+        <li>
+            <a href="/cars/{{car.id}}">
+                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{driver.first_name}}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
