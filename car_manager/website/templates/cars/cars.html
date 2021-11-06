@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+{% load static  %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"  href="https://drive.google.com/uc?export=view&id=1BlKeWBurYw2rApZzVBVXEn-WVWqP5sy_" type="text/css" />
     <title>Cars!</title>
 </head>
 <body>
@@ -13,10 +15,24 @@
         {% for car in cars %}
         <li>
             <a href="/cars/{{car.id}}">
-                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{driver.first_name}}
+                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{car.driver.first_name}} {{car.driver.last_name}}
             </a>
         </li>
         {% endfor %}
     </ul>
+    <div class="carsTable">
+        <div class="carsTableBody">
+            {% for car in cars %}
+            <div class="carsTableRow">
+                    <div class="carsTableRow">&nbsp;{{car.brand}}</div>
+                    <div class="carsTableRow">&nbsp;{{car.model}}</div>
+                    <div class="carsTableRow">&nbsp;{{car.overview_date}}</div>
+                    <div class="carsTableRow">&nbsp;{{car.oil_change_date}}</div>
+                    <div class="carsTableRow">&nbsp;{{car.driver.first_name}}</div>
+                    <div class="carsTableRow">&nbsp;{{car.driver.last_name}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>

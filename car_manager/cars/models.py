@@ -12,7 +12,7 @@ class Car(models.Model):
     model = models.CharField(max_length=50)
     overview_date = models.DateField()
     oil_change_date = models.DateField()
-    driver= models.ForeignKey(Driver, on_delete=models.CASCADE)
+    driver= models.OneToOneField(Driver, on_delete=models.CASCADE, unique=True)
 
     def __str__(self):
         return f"{self.brand} - {self.model}"
