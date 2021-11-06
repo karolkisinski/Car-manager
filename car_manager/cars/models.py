@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 class Driver(models.Model):
     first_name = models.CharField(max_length=50)
@@ -13,6 +14,9 @@ class Car(models.Model):
     overview_date = models.DateField()
     oil_change_date = models.DateField()
     driver= models.OneToOneField(Driver, on_delete=models.CASCADE, unique=True)
+
+    def overview_next_date(self):
+        return self.overview_date + timedelta(days=365)
 
     def __str__(self):
         return f"{self.brand} - {self.model}"

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"  href="https://drive.google.com/uc?export=view&id=1BlKeWBurYw2rApZzVBVXEn-WVWqP5sy_" type="text/css" />
+    <link rel="stylesheet"  href="/static/website/style.css" type="text/css" />
     <title>Cars!</title>
 </head>
 <body>
@@ -22,14 +22,24 @@
     </ul>
     <div class="carsTable">
         <div class="carsTableBody">
+            <div class="carsTableRow">
+                <div class="carsTableCell" style="background-color:#cce0ff">Brand</div>
+                <div class="carsTableCell" style="background-color:#cce0ff" >Model</div>
+                <div class="carsTableCell" style="background-color:#cce0ff">Overview date</div>
+                <div class="carsTableCell" style="background-color:#cce0ff">Overview next date</div>
+                <div class="carsTableCell" style="background-color:#cce0ff">Oil change date</div>
+                <div class="carsTableCell" style="background-color:#cce0ff">Drive name</div>
+                <div class="carsTableCell" style="background-color:#cce0ff">Driver last name</div>
+            </div>
             {% for car in cars %}
             <div class="carsTableRow">
-                    <div class="carsTableRow">&nbsp;{{car.brand}}</div>
-                    <div class="carsTableRow">&nbsp;{{car.model}}</div>
-                    <div class="carsTableRow">&nbsp;{{car.overview_date}}</div>
-                    <div class="carsTableRow">&nbsp;{{car.oil_change_date}}</div>
-                    <div class="carsTableRow">&nbsp;{{car.driver.first_name}}</div>
-                    <div class="carsTableRow">&nbsp;{{car.driver.last_name}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.brand}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.model}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.overview_date}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.overview_next_date}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.oil_change_date}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.driver.first_name}}</div>
+                    <div class="carsTableCell">&nbsp;{{car.driver.last_name}}</div>
             </div>
             {% endfor %}
         </div>
