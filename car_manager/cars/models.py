@@ -16,7 +16,7 @@ class Car(models.Model):
     driver= models.OneToOneField(Driver, on_delete=models.CASCADE, unique=True)
 
     def overview_next_date(self):
-        return self.overview_date + timedelta(days=365)
+        return (self.overview_date + timedelta(days=365))
 
     def __str__(self):
         return f"{self.brand} - {self.model}"

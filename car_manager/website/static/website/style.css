@@ -1,36 +1,38 @@
-background{
-    color: red;
+.carsTable {
+    display: flex;
+    justify-content:center;
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
+    min-height: .01%;
+    overflow-x: auto;
+    text-align:center;
+    margin-top: 25px;
+    border-style: groove;
+    border-radius: 5px;
+
 }
-    .carsTable
-    {
-        display:  table;
-        width:auto;
-        background-color:#eee;
-        border:1px solid  #666666;
-        border-spacing:5px;/*cellspacing:poor IE support for  this*/
-       /* border-collapse:separate;*/
-    }
+.table{
+    align-self:center;
+}
 
-    .carsTableHeadRow{
-
-        display:table-row;
-        width:auto;
+@media screen and (max-width: 767px) {
+    .carsTable {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd;
     }
-    .carsTableHeadCell{
-
-        display:table-column;
-        width:200px;
+    .table-responsive > .table {
+        margin-bottom: 0;
     }
-    .carsTableRow
-    {
-       display:table-row;
-       width:auto;
+    .carsTable > .table > thead > tr > th,
+    .carsTable > .table > tbody > tr > th,
+    .carsTable > .table > tfoot > tr > th,
+    .carsTable > .table > thead > tr > td,
+    .carsTable > .table > tbody > tr > td,
+    .carsTable > .table > tfoot > tr > td {
+        white-space: nowrap;
     }
-
-    .carsTableCell
-    {
-        float:left;/*fix for  buggy browsers*/
-        display:table-column;
-        width:200px;
-        background-color:#ccc;
-    }
+}

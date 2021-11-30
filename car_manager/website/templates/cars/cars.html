@@ -4,45 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="/static/website/style.css" type="text/css" />
+    <link rel="stylesheet"  href="/static/website/nav.css" type="text/css" />
     <title>Cars!</title>
 </head>
 <body>
-    <p>
-        Cars we have:
-    </p>
-
-    <ul>
-        {% for car in cars %}
-        <li>
-            <a href="/cars/{{car.id}}">
-                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{car.driver.first_name}} {{car.driver.last_name}}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-    <div class="carsTable">
-        <div class="carsTableBody">
-            <div class="carsTableRow">
-                <div class="carsTableCell" style="background-color:#cce0ff">Brand</div>
-                <div class="carsTableCell" style="background-color:#cce0ff" >Model</div>
-                <div class="carsTableCell" style="background-color:#cce0ff">Overview date</div>
-                <div class="carsTableCell" style="background-color:#cce0ff">Overview next date</div>
-                <div class="carsTableCell" style="background-color:#cce0ff">Oil change date</div>
-                <div class="carsTableCell" style="background-color:#cce0ff">Drive name</div>
-                <div class="carsTableCell" style="background-color:#cce0ff">Driver last name</div>
-            </div>
-            {% for car in cars %}
-            <div class="carsTableRow">
-                    <div class="carsTableCell">&nbsp;{{car.brand}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.model}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.overview_date}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.overview_next_date}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.oil_change_date}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.driver.first_name}}</div>
-                    <div class="carsTableCell">&nbsp;{{car.driver.last_name}}</div>
-            </div>
-            {% endfor %}
+    <header>
+        <div class="container">
+          <h1 class="logo"></h1>
+                <!-- logo.png-->
+          <nav>
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'cars' %}">Cars list</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </nav>
         </div>
+      </header>
+<!--    <p>-->
+<!--        Cars we have:-->
+<!--    </p>-->
+
+<!--    <ul>-->
+<!--        {% for car in cars %}-->
+<!--        <li>-->
+<!--            <a href="/cars/{{car.id}}">-->
+<!--                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{car.driver.first_name}} {{car.driver.last_name}}-->
+<!--            </a>-->
+<!--        </li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+    <div class="carsTable">
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Overview date</th>
+                    <th>Overview next date</th>
+                    <th>Oil change date</th>
+                    <th>Driver</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                    <tr>
+                        <td>{{car.brand}}</td>
+                        <td>{{car.model}}</td>
+                        <td>{{car.overview_date}}</td>
+                        <td>{{car.overview_next_date}}</td>
+                        <td>{{car.oil_change_date}}</td>
+                        <td>{{car.driver.first_name}} {{car.driver.last_name}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

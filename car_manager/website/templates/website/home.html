@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="/static/website/nav.css" type="text/css" />
+    <title>Welcome!</title>
+</head>
+<body>
+    <header>
+    <div class="container">
+      <h1 class="logo"></h1>
+            <!-- logo.png-->
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'cars' %}">Cars list</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+    <p>
+      This applications allows you to
+      control your company cars!
+    </p>
+
+    <p>
+        There are currently {{ num_cars }} cars in the database.
+    </p>
+
+    <p><a href="{% url 'cars' %}">Car list</a></p>
+</body>
+</html>
