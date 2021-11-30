@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from website.views import home, date
-from cars.views import detail, cars
+from cars.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +25,7 @@ urlpatterns = [
     path('date', date),
     path('cars/<int:id>', detail),
     path('cars/cars.html', cars, name="cars"),
+    path('login/', loginPage, name="login"),
+    path('logout/', logoutUser, name="logout"),
+    path('register/', registerPage, name="register"),
 ]

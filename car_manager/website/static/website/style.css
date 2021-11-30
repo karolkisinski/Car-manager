@@ -10,10 +10,33 @@
     margin-top: 25px;
     border-style: groove;
     border-radius: 5px;
+    color: white;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
 
 }
 .table{
     align-self:center;
+}
+.carsTable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    /*text-align: center;*/
+}
+
+.carsTable th,
+.carsTable td {
+    padding: 12px 15px;
+}
+
+.carsTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.carsTable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
 }
 
 @media screen and (max-width: 767px) {
@@ -23,6 +46,7 @@
         overflow-y: hidden;
         -ms-overflow-style: -ms-autohiding-scrollbar;
         border: 1px solid #ddd;
+        font-size: 0.5em;
     }
     .table-responsive > .table {
         margin-bottom: 0;
