@@ -28,4 +28,7 @@ urlpatterns = [
     path('login/', loginPage, name="login"),
     path('logout/', logoutUser, name="logout"),
     path('register/', registerPage, name="register"),
+    path('create_car/', createCar, name="create_car"),
+    path('cars/update_car/<str:pk>/', updateCar, name="update_car"),
+    path('cars/delete_car/<str:pk>/', deleteCar, name="delete_car"),
 ]

@@ -3,8 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"  href="/static/website/style.css" type="text/css" />
-    <link rel="stylesheet"  href="/static/website/nav.css" type="text/css" />
+    <script type="text/javascript" src="/static/website/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="/static/website/js/functions.js"></script>
+    <link rel="stylesheet"  href="/static/website/css/style.css" type="text/css" />
+    <link rel="stylesheet"  href="/static/website/css/nav.css" type="text/css" />
     <title>Cars!</title>
 </head>
 <body>
@@ -44,6 +46,8 @@
                     <th>Overview next date</th>
                     <th>Oil change date</th>
                     <th>Driver</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,10 +59,15 @@
                         <td>{{car.overview_next_date}}</td>
                         <td>{{car.oil_change_date}}</td>
                         <td>{{car.driver.first_name}} {{car.driver.last_name}}</td>
+                        <td><a class="btn car-udpate" href="{% url 'update_car' car.id %}">Update</a></td>
+                        <td><button id='delete-car' onclick=call_counter('{% url 'delete_car' car.id %}')>Delete</button></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="car add">
+        <a class="btn car-add" href="{% url 'create_car' %}">Add Car</a>
     </div>
 </body>
 </html>

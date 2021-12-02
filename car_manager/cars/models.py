@@ -13,7 +13,7 @@ class Car(models.Model):
     model = models.CharField(max_length=50)
     overview_date = models.DateField()
     oil_change_date = models.DateField()
-    driver= models.OneToOneField(Driver, on_delete=models.CASCADE, unique=True)
+    driver= models.ForeignKey(Driver, on_delete=models.CASCADE)
 
     def overview_next_date(self):
         return (self.overview_date + timedelta(days=365))

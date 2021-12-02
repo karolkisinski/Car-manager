@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import timedelta
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm, CarForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -53,5 +53,29 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def home(request):
+    #context = {}
+    return render(request, "website/home.html", {"num_cars": Car.objects.count()})
+
+def createCar(request):
+    form = CarForm()
+    if request.method == 'POST':
+        form = CarForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'cars/car_form.html', context)
+def updateCar(request, pk):
+    car = Car.objects.get(id=pk)
+    form = CarForm(instance=car)
+    if request.method == 'POST':
+        form = CarForm(request.POST, instance=car)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'cars/car_form.html', context)
+
+def deleteCar(request, pk):
+    car = Car.objects.get(pk=pk)
+    car.delete()
     context = {}
-    return render(request, "website/home.html", context)
+    return redirect('cars')
