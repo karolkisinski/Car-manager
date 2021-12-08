@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from website.views import home, date
+from website.views import *
 from cars.views import *
 
 urlpatterns = [
@@ -31,4 +31,5 @@ urlpatterns = [
     path('create_car/', createCar, name="create_car"),
     path('cars/update_car/<str:pk>/', updateCar, name="update_car"),
     path('cars/delete_car/<str:pk>/', deleteCar, name="delete_car"),
+    path('driver/', driver, name="driver"),
 ]
