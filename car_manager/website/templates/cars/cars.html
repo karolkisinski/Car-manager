@@ -1,41 +1,7 @@
-<!DOCTYPE html>
-{% load static  %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="/static/website/js/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="/static/website/js/functions.js"></script>
-    <link rel="stylesheet"  href="/static/website/css/style.css" type="text/css" />
-    <link rel="stylesheet"  href="/static/website/css/nav.css" type="text/css" />
-    <title>Cars!</title>
-</head>
-<body>
-    <header>
-        <div class="container">
-          <h1 class="logo"></h1>
-                <!-- logo.png-->
-          <nav>
-            <ul>
-              <li><a href="{% url 'home' %}">Home</a></li>
-              <li><a href="{% url 'cars' %}">Cars list</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-<!--    <p>-->
-<!--        Cars we have:-->
-<!--    </p>-->
+{% extends 'website/main.html' %}
 
-<!--    <ul>-->
-<!--        {% for car in cars %}-->
-<!--        <li>-->
-<!--            <a href="/cars/{{car.id}}">-->
-<!--                Brand: {{car.brand}} Model: {{car.model}} Overview date: {{car.overview_date}} Driver: {{car.driver.first_name}} {{car.driver.last_name}}-->
-<!--            </a>-->
-<!--        </li>-->
-<!--        {% endfor %}-->
-<!--    </ul>-->
+{% block content %}
+
     <div class="carsTable">
         <table>
             <thead>
@@ -69,5 +35,5 @@
     <div class="car add">
         <a class="btn car-add" href="{% url 'create_car' %}">Add Car</a>
     </div>
-</body>
-</html>
+
+{% endblock content %}

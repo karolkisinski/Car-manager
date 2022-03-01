@@ -53,7 +53,7 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required(login_url='login')
-@owner_only
+#@owner_only
 def home(request):
     #context = {}
     cars = Car.objects.count()
@@ -67,18 +67,19 @@ def driver(request):
     return render(request, 'website/driver.html', context)
 
 @login_required(login_url='login')
-@owner_only
+#@owner_only
 def createCar(request):
     form = CarForm()
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('cars')
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
 
 @login_required(login_url='login')
-@owner_only
+#@owner_only
 def updateCar(request, pk):
     car = Car.objects.get(id=pk)
     form = CarForm(instance=car)
@@ -90,7 +91,7 @@ def updateCar(request, pk):
     return render(request, 'cars/car_form.html', context)
 
 @login_required(login_url='login')
-@owner_only
+#@owner_only
 def deleteCar(request, pk):
     car = Car.objects.get(pk=pk)
     car.delete()

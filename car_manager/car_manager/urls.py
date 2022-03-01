@@ -32,4 +32,5 @@ urlpatterns = [
     path('cars/update_car/<str:pk>/', updateCar, name="update_car"),
     path('cars/delete_car/<str:pk>/', deleteCar, name="delete_car"),
     path('driver/', driver, name="driver"),
+    #path('car_view/<str:pk>/', car_view, name="car_view"),
 ]
