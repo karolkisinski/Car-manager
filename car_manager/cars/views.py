@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import timedelta
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm, CarForm
+from .forms import CreateUserForm, CarForm, DriverForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -17,8 +17,10 @@ def detail(request, id):
     return render(request, "cars/detail.html", {"car": car})
 
 def cars(request):
+    user = request.user
+    print(user.id)
     return render(request, "cars/cars.html",
-                  {"cars": Car.objects.all()})
+                  {"cars": Car.objects.filter(user_id=user.id)}) #{"cars": Car.objects.all()}
 
 @unauthenticated_user
 def registerPage(request):
@@ -69,14 +71,31 @@ def driver(request):
 @login_required(login_url='login')
 #@owner_only
 def createCar(request):
-    form = CarForm()
+    user_id = request.user
+    form = CarForm(user_id=user_id)
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
-            form.save()
+            car = form.save(commit=False)
+            car.user = request.user
+            car.save()
             return redirect('cars')
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
+
+@login_required(login_url='login')
+#@owner_only
+def createDriver(request):
+    form = DriverForm()
+    if request.method == 'POST':
+        form = DriverForm(request.POST)
+        if form.is_valid():
+            driver = form.save(commit=False)
+            driver.user = request.user
+            driver.save()
+            return redirect('cars')
+    context = {'form': form}
+    return render(request, 'cars/driver_form.html', context)
 
 @login_required(login_url='login')
 #@owner_only
