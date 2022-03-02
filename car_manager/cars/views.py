@@ -18,7 +18,6 @@ def detail(request, id):
 
 def cars(request):
     user = request.user
-    print(user.id)
     return render(request, "cars/cars.html",
                   {"cars": Car.objects.filter(user_id=user.id)}) #{"cars": Car.objects.all()}
 
@@ -71,15 +70,19 @@ def driver(request):
 @login_required(login_url='login')
 #@owner_only
 def createCar(request):
-    user_id = request.user
-    form = CarForm(user_id=user_id)
+    user = request.user
+    form = CarForm(user_id = user.id)
+    #form = CarForm()
     if request.method == 'POST':
-        form = CarForm(request.POST)
+        form = CarForm(request.POST, user_id=request.user.id)
         if form.is_valid():
-            car = form.save(commit=False)
-            car.user = request.user
+            #car = form.save(commit=False)
+            #car.user = request.user
+            car = form.save()
             car.save()
             return redirect('cars')
+        #else:
+            #form = CarForm(user_id=user_id.id)
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
 
