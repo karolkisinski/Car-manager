@@ -8,7 +8,7 @@ class Driver(models.Model):
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     #car = models.ForeignKey(Car, default=1, on_delete=models.SET_DEFAULT)
 
 
@@ -21,8 +21,8 @@ class Car(models.Model):
     model = models.CharField(max_length=50)
     overview_date = models.DateField()
     oil_change_date = models.DateField()
-    driver = models.ForeignKey(Driver, default=1, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    driver = models.ForeignKey(Driver, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     def overview_next_date(self):
         return (self.overview_date + timedelta(days=365))

@@ -76,9 +76,8 @@ def createCar(request):
     if request.method == 'POST':
         form = CarForm(request.POST, user_id=request.user.id)
         if form.is_valid():
-            #car = form.save(commit=False)
-            #car.user = request.user
-            car = form.save()
+            car = form.save(commit=False)
+            car.user = request.user
             car.save()
             return redirect('cars')
         #else:
