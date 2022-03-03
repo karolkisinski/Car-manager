@@ -103,9 +103,9 @@ def createDriver(request):
 #@owner_only
 def updateCar(request, pk):
     car = Car.objects.get(id=pk)
-    form = CarForm(instance=car)
+    form = CarForm(instance=car, user_id=request.user.id)
     if request.method == 'POST':
-        form = CarForm(request.POST, instance=car)
+        form = CarForm(request.POST, instance=car, user_id=request.user.id)
         if form.is_valid():
             form.save()
     context = {'form': form}
