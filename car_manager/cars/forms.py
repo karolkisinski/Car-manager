@@ -15,15 +15,21 @@ class CarForm(ModelForm):
     class Meta:
         model = Car
         fields = ['brand', 'model', 'overview_date', 'oil_change_date', 'driver']
+        widgets = {
+            'brand': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}),
+            'model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Model'}),
+            'driver': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Driver'}),
+
+        }
 
     def __init__(self, *args, **kwargs):
         user_id = kwargs.pop('user_id', None)
         super(CarForm, self).__init__(*args, **kwargs)
         self.fields['driver'].queryset = Driver.objects.none()
         self.fields['overview_date'] = forms.CharField(
-            widget=forms.DateInput(attrs={'type': 'date'}))
+            widget=forms.DateInput(attrs={'class': 'form-control col-md-4', 'type': 'date'}))
         self.fields['oil_change_date'] = forms.CharField(
-            widget=forms.DateInput(attrs={'type': 'date'}))
+            widget=forms.DateInput(attrs={'class': 'form-control col-md-4', 'type': 'date'}))
         if user_id is not None:
             # update queryset for exercise field
             self.fields['driver'].queryset = Driver.objects.filter(user_id=user_id)
@@ -31,6 +37,7 @@ class CarForm(ModelForm):
         else:
             # UserExercises.objects.none() will return an empty queryset
             self.fields['driver'].queryset = Driver.objects.none()
+
     # driver = forms.ModelChoiceField(queryset=Driver.objects.none())
 
 
@@ -39,3 +46,10 @@ class DriverForm(ModelForm):
         model = Driver
         fields = ['first_name', 'last_name', 'phone', 'email']
         exclude = ['car_id']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+
+        }

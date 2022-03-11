@@ -16,10 +16,22 @@ def detail(request, id):
     date = car.overview_date + timedelta(days=365)
     return render(request, "cars/detail.html", {"car": car})
 
+
 def cars(request):
+    pk = request.GET.get('pk')
+
+    #car = get_object_or_404(Car, pk=pk)
+    form = CarForm(user_id=request.user.id)
+    if request.method == 'POST':
+        form = CarForm(request.POST, user_id=request.user.id)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+
     user = request.user
     return render(request, "cars/cars.html",
-                  {"cars": Car.objects.filter(user_id=user.id)}) #{"cars": Car.objects.all()}
+                  {"cars": Car.objects.filter(user_id=user.id),
+                   "form": form}) #{"cars": Car.objects.all()}
 
 @unauthenticated_user
 def registerPage(request):
@@ -108,6 +120,7 @@ def updateCar(request, pk):
         form = CarForm(request.POST, instance=car, user_id=request.user.id)
         if form.is_valid():
             form.save()
+            return redirect('cars')
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
 

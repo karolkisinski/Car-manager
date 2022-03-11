@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+body {
+	margin: 0;
+	background: #ffffff;
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+}
+
+.carsTable {
+    display: flex;
+    justify-content:center;
+    width:75%;
+    margin-left:auto;
+    margin-right:auto;
+    min-height: .01%;
+    overflow-x: auto;
+    text-align:center;
+    margin-top: 25px;
+    border-style: groove;
+    border-radius: 5px;
+    color: black;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+
+}
+.table{
+    align-self:center;
+}
+.carsTable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    /*text-align: center;*/
+}
+
+.carsTable th,
+.carsTable td {
+    padding: 12px 15px;
+}
+
+.carsTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.carsTable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    overflow: auto;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.modal-window {
+    position: relative;
+    background-color: #FFFFFF;
+    width: 50%;
+    margin: 10% auto;
+    padding: 20px;
+}
+
+.modal-window.small {
+    width: 30%;
+}
+
+.modal-window.large {
+    width: 75%;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(0,0,0,0.3);
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    cursor: pointer;
+}
+
+.open {
+    display: block;
+}
+
+@media screen and (max-width: 767px) {
+    .carsTable {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd;
+        font-size: 0.5em;
+    }
+    .table-responsive > .table {
+        margin-bottom: 0;
+    }
+    .carsTable > .table > thead > tr > th,
+    .carsTable > .table > tbody > tr > th,
+    .carsTable > .table > tfoot > tr > th,
+    .carsTable > .table > thead > tr > td,
+    .carsTable > .table > tbody > tr > td,
+    .carsTable > .table > tfoot > tr > td {
+        white-space: nowrap;
+    }
+}

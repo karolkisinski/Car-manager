@@ -1,10 +1,20 @@
 {% extends 'website/main.html' %}
 
 {% block content %}
+<div class="form-group mt-5">
     <form action="" method="POST">
-        {% csrf_token %}
-        {{form}}
-      <input type="submit" name="Submit">
+        <div class="form-utline mb-4">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-outline mb-4 col-lg-4 col-md-4 col-sm-4 container justify-content-center">
+                {{ field }}
+            </div>
+        {% endfor %}
+        </div>
+        <div class="text-center">
+      <input class="btn btn-primary btn-block mb-4" type="submit" name="Submit">
+        </div>
     </form>
+</div>
 
 {% endblock content %}

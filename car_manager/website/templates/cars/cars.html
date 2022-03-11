@@ -1,9 +1,9 @@
 {% extends 'website/main.html' %}
 
 {% block content %}
-
-    <div class="carsTable">
-        <table>
+<div class="row justify-content-center mt-5">
+    <div class="col-auto">
+        <table class="table table-striped table-responsive" id="table">
             <thead>
                 <tr>
                     <th>Brand</th>
@@ -18,25 +18,26 @@
             </thead>
             <tbody>
                 {% for car in cars %}
-                    <tr>
+                    <tr class="car">
                         <td>{{car.brand}}</td>
                         <td>{{car.model}}</td>
                         <td>{{car.overview_date}}</td>
                         <td>{{car.overview_next_date}}</td>
                         <td>{{car.oil_change_date}}</td>
                         <td>{{car.driver.first_name}} {{car.driver.last_name}}</td>
-                        <td><a class="btn car-udpate" href="{% url 'update_car' car.id %}">Update</a></td>
-                        <td><button id='delete-car' onclick=call_counter('{% url 'delete_car' car.id %}')>Delete</button></td>
+                        <td><a class="btn btn-primary btn-sm m-0" href="{% url 'update_car' car.id %}">Update</a></td>
+                        <td><button id='delete-car' class="btn btn-primary btn-sm m-0" onclick=call_counter('{% url 'delete_car' car.id %}')>Delete</button></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="car add">
-        <a class="btn car-add" href="{% url 'create_car' %}">Add Car</a>
+</div>
+<div class="container text-center">
+    <div class="btn-group ">
+        <a class="btn btn-primary btn-sm m-0" href="{% url 'create_car' %}">Add Car</a>
+        &nbsp;
+        <a class="btn btn-primary btn-sm m-0" href="{% url 'create_driver' %}">Add Driver</a>
+        </div>
     </div>
-    <div class="driver add">
-        <a class="btn car-add" href="{% url 'create_driver' %}">Add Driver</a>
-    </div>
-
 {% endblock content %}

@@ -3,8 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"  href="/static/website/css/style.css" type="text/css" />
-    <link rel="stylesheet"  href="/static/website/css/nav.css" type="text/css" />
+    <!--<link rel="stylesheet"  href="/static/website/css/nav.css" type="text/css" />-->
+    <link rel="stylesheet" href="/static/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="/static/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/website/js/functions.js"></script>
     <title>Welcome!</title>
 </head>
@@ -18,7 +23,10 @@
   </header>
     {% block content %}{% endblock %}
 </body>
-<footer>
-    Footer
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    Wykonane przez
+    <div class="text-reset fw-bold">Karol Kisiński</div>
+  </div>
 </footer>
 </html>
