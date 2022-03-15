@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'website',
     'cars',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

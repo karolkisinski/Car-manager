@@ -1,11 +1,18 @@
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import BadHeaderError, send_mail
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import timedelta
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, PasswordChangeForm
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+
 from .forms import CreateUserForm, CarForm, DriverForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from .decorators import *
 
 from .models import Car, Driver
@@ -32,6 +39,7 @@ def cars(request):
                    "drivers_count": Driver.objects.filter(user_id=user.id).count(),
                    "cars_count": Car.objects.filter(user_id=user.id).count()})
 
+
 def drivers(request):
     pk = request.GET.get('pk')
     form = DriverForm()
@@ -46,6 +54,7 @@ def drivers(request):
                    "form": form,
                    "drivers_count": Driver.objects.filter(user_id=user.id).count()})
 
+
 @unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
@@ -58,8 +67,10 @@ def registerPage(request):
             user.groups.add(group)
             messages.success(request, "Account was created for " + username)
             return redirect('login')
-    context = {'form':form}
+    context = {'form': form}
     return render(request, "accounts/register.html", context)
+
+
 @unauthenticated_user
 def loginPage(request):
     if request.method == 'POST':
@@ -74,28 +85,31 @@ def loginPage(request):
     context = {}
     return render(request, "accounts/login.html", context)
 
+
 def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def home(request):
     user = request.user
     return render(request, "website/home.html", {"cars": Car.objects.filter(user_id=user.id)})
 
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Driver'])
-
 def driver(request):
     context = {}
     return render(request, 'website/driver.html', context)
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def createCar(request):
     user = request.user
-    form = CarForm(user_id = user.id)
+    form = CarForm(user_id=user.id)
     if request.method == 'POST':
         form = CarForm(request.POST, user_id=request.user.id)
         if form.is_valid():
@@ -106,8 +120,9 @@ def createCar(request):
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def createDriver(request):
     form = DriverForm()
     if request.method == 'POST':
@@ -120,8 +135,9 @@ def createDriver(request):
     context = {'form': form}
     return render(request, 'cars/driver_form.html', context)
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def updateCar(request, pk):
     car = Car.objects.get(id=pk)
     form = CarForm(instance=car, user_id=request.user.id)
@@ -133,16 +149,18 @@ def updateCar(request, pk):
     context = {'form': form}
     return render(request, 'cars/car_form.html', context)
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def deleteCar(request, pk):
     car = Car.objects.get(pk=pk)
     car.delete()
     context = {}
     return redirect('cars')
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def updateDriver(request, pk):
     driver = Driver.objects.get(id=pk)
     form = DriverForm(instance=driver)
@@ -154,10 +172,64 @@ def updateDriver(request, pk):
     context = {'form': form}
     return render(request, 'cars/driver_form.html', context)
 
+
 @login_required(login_url='login')
-#@owner_only
+# @owner_only
 def deleteDriver(request, pk):
     driver = Driver.objects.get(pk=pk)
     driver.delete()
     context = {}
     return redirect('drivers')
+
+
+def password_reset_request(request):
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+            associated_users = User.objects.filter(Q(email=data))
+            if associated_users.exists():
+                for user in associated_users:
+                    subject = "Password Reset Requested"
+                    email_template_name = "main/password/password_reset_email.txt"
+                    c = {
+                        "email": user.email,
+                        'domain': '127.0.0.1:8000',
+                        'site_name': 'Website',
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "user": user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'http',
+                    }
+                    email = render_to_string(email_template_name, c)
+                    try:
+                        send_mail(subject, email, 'admin@example.com', [user.email], fail_silently=False)
+                    except BadHeaderError:
+
+                        return HttpResponse('Invalid header found.')
+
+                    messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+                    return redirect("login")
+                messages.error(request, 'An invalid email has been entered.')
+    password_reset_form = PasswordResetForm()
+    return render(request=request, template_name="main/password/password_reset.html",
+                  context={"password_reset_form": password_reset_form})
+
+def account(request):
+    context = {}
+    return render(request, 'accounts/account.html', context)
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'A password has been changed.')
+            return redirect('account')
+        else:
+            return redirect('change_password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        args = {'form': form}
+        return render(request, 'accounts/change_password.html', args)

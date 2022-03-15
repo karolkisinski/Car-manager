@@ -1,0 +1,15 @@
+{% extends 'website/main.html' %}
+
+{% block content %}
+
+    <div class="container text-center mt-2">
+        {% for message in messages %}
+        <p id="messages">{{message}}</p>
+        {% endfor %}
+    </div>
+<div class="container text-center mt-2">
+    <div class="btn-group ">
+        <a class="btn btn-primary btn-sm m-0" href="{% url 'change_password' %}">Change password</a>
+        </div>
+    </div>
+{% endblock content %}
