@@ -95,7 +95,15 @@ def logoutUser(request):
 # @owner_only
 def home(request):
     user = request.user
-    return render(request, "website/home.html", {"cars": Car.objects.filter(user_id=user.id)})
+    group = None
+    if user.groups.exists():
+        group = request.user.groups.all()[0].name
+    if group == 'Admin':
+        return redirect('/admin')
+    if group == 'Owner':
+        return render(request, "website/home.html", {"drivers_count": Driver.objects.filter(user_id=user.id).count(),
+                                                     "cars_count": Car.objects.filter(user_id=user.id).count(),
+                                                     "cars": Car.objects.filter(user_id=request.user.id)})
 
 
 @login_required(login_url='login')

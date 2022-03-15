@@ -21,7 +21,7 @@ from website.views import *
 from cars.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
     path('', home, name="home"),
     path('date', date),
     path('cars/<int:id>', detail),
