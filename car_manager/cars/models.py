@@ -27,6 +27,9 @@ class Car(models.Model):
     def overview_next_date(self):
         return (self.overview_date + timedelta(days=365))
 
+    def oil_change_next_date(self):
+        return (self.oil_change_date + timedelta(days=365))
+
     def __str__(self):
         return f"{self.brand} - {self.model}"
 

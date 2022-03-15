@@ -25,6 +25,7 @@ urlpatterns = [
     path('date', date),
     path('cars/<int:id>', detail),
     path('cars/cars.html', cars, name="cars"),
+    path('cars/drivers.html', drivers, name="drivers"),
     path('login/', loginPage, name="login"),
     path('logout/', logoutUser, name="logout"),
     path('register/', registerPage, name="register"),
@@ -32,6 +33,8 @@ urlpatterns = [
     path('create_driver/', createDriver, name="create_driver"),
     path('cars/update_car/<str:pk>/', updateCar, name="update_car"),
     path('cars/delete_car/<str:pk>/', deleteCar, name="delete_car"),
+    path('cars/update_driver/<str:pk>/', updateDriver, name="update_driver"),
+    path('cars/delete_driver/<str:pk>/', deleteDriver, name="delete_driver"),
     path('driver/', driver, name="driver"),
     #path('car_view/<str:pk>/', car_view, name="car_view"),
 ]

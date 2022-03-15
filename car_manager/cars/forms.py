@@ -16,9 +16,9 @@ class CarForm(ModelForm):
         model = Car
         fields = ['brand', 'model', 'overview_date', 'oil_change_date', 'driver']
         widgets = {
-            'brand': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}),
-            'model': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Model'}),
-            'driver': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Driver'}),
+            'brand': forms.TextInput(attrs={'class': 'form-control'}),
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'driver': forms.Select(attrs={'class': 'form-control'}),
 
         }
 

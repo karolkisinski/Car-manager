@@ -1,14 +1,39 @@
 {% extends 'website/main.html' %}
 {% block content %}
-    <p>
-      This applications allows you to
-      control your company cars!
-    </p>
-
-    <p>
-        There are currently {{ num_cars }} cars in the database.
-    </p>
-
-    <p><a href="{% url 'cars' %}">Car list</a></p>
-
+<div class="row justify-content-center mt-5">
+    {% if drivers_count < 1 %}
+        Add your first driver
+    <div class="container text-center">
+        <a class="btn btn-primary btn-sm m-0 mt-2" href="{% url 'create_driver' %}">Add Driver</a>
+    </div>
+    {% elif cars_count < 1 %}
+        Add your first car!
+    <div class="container text-center">
+        <a class="btn btn-primary btn-sm m-0 mt-2" href="{% url 'create_car' %}">Add car</a>
+    </div>
+    {% else %}
+    <div class="col-auto">
+        <table class="table table-striped table-responsive" id="table">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Overview next date</th>
+                    <th>Oil change next date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                    <tr class="car">
+                        <td>{{car.brand}}</td>
+                        <td>{{car.model}}</td>
+                        <td>{{car.overview_next_date}}</td>
+                        <td>{{car.oil_change_next_date}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
 {% endblock content %}
